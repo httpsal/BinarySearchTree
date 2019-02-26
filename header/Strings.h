@@ -13,5 +13,8 @@ void *getString(void);
 
 int getStringDimension(char *string);
 
+void *getRandomString(void);
+
+void *copyString(void *from);
 
 #endif /* HEADER_STRINGS_H_ */

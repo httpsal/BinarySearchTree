@@ -1,37 +1,49 @@
 #ifndef HEADER_BST_H_
 #define HEADER_BST_H_
 
-#include "../header/Strings.h"
-#include "../header/Integer.h"
+#include "Operations.h"
 
-struct tree {
+typedef struct tree {
 	void *key;
 	struct tree *right;
 	struct tree *left;
-};
+} Tree;
+
 
 /**
- * Operations available for the "void *key" of a tree.
+ * New node
  */
-struct op {
+Tree *newNode(void *key);
+Tree *insertNode(Tree *T, void *key, struct op *operation);
 
-	void (*print)(void *key);
-	int (*compare)(void *a, void *b);
-	void (*delete)(void *key);
-	void *(*getInput)(void);
-};
+/**
+ * Tree visit
+ */
+void inOrder(Tree *T, struct op *operation);
+void postOrder(Tree *T, struct op *operation);
+void preOrder(Tree *T, struct op *operation);
 
-typedef enum {
-	integer, strings
-} op_type;
+/**
+ * Delete node/tree
+ */
+Tree *deleteTree(Tree *T, struct op *operation);
 
-struct tree * insertMultipleElements(struct tree *T, struct op *operation,
-		int n);
-struct op *initOperations(op_type type);
-struct tree *newNode(void *key);
-struct tree *insert(struct tree *T, void *key, struct op *operation);
-void inOrder(struct tree *T, struct op *operation);
-struct tree *deleteAll(struct tree *T, struct op *operation);
-void deleteNode(struct tree *T, struct op *operation);
+Tree *deleteNode(Tree *T, void *key, struct op *operation);
+Tree *freeNode(Tree *T, struct op *operation);
+Tree *extractMinimum(Tree *T, Tree *P);
+
+/**
+ * Various
+ */
+int countNodes(Tree *T);
+
+Tree *insertMultipleElements(Tree *T, struct op *operation, int n);
+
+Tree *insertRandomElements(Tree *T, struct op *operation, int n);
+
+void **treeToArray(Tree *T, struct op *operation);
+
+int addToArray(Tree *T, void **arr, int i, struct op *operation);
+
 
 #endif /* HEADER_BST_H_ */

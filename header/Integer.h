@@ -7,9 +7,12 @@ int compareInt(void *a, void *b);
 
 void printInt(void *key);
 
-void deleteInt(void *key);
-
 void *getInt(void);
 
+void *getRandomInt(void);
+
+void deleteInt(void *key);
+
+void *copyInt(void *from);
 
 #endif /* HEADER_INTEGER_H_ */
