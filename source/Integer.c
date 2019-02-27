@@ -18,7 +18,9 @@ int compareInt(void *a, void *b) {
  */
 void printInt(void *key) {
 	int *keyInt = (int *) key;
-	printf("%d", *keyInt);
+	if (keyInt != NULL) {
+		printf("%d", *keyInt);
+	}
 }
 
 /**
@@ -31,9 +33,13 @@ void *getInt(void) {
 	int *input = (int *) malloc(sizeof(int));
 	if (input) {
 
-		if (fgets(buffer, SIZE, stdin)) {
-			sscanf(buffer, "%d", input);
-			return (void *) input;
+		if (fgets(buffer, SIZE, stdin) != NULL) {
+			if (buffer[0] != '\n') {
+				sscanf(buffer, "%d", input);
+				return (void *) input;
+			} else {
+				free(input);
+			}
 		}
 	}
 	return NULL;

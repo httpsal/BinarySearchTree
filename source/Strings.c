@@ -18,7 +18,9 @@ int compareStrings(void *a, void *b) {
  */
 void printString(void *key) {
 	char *keyString = (char *) key;
-	printf("%s", keyString);
+	if (keyString != NULL) {
+		printf("%s", keyString);
+	}
 }
 
 /**
@@ -43,7 +45,6 @@ void *getString(void) {
 			}
 		}
 	}
-
 	return NULL;
 }
 
