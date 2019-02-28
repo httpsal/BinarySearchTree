@@ -41,9 +41,16 @@ Tree *insertMultipleElements(Tree *T, struct op *operation, int n);
 
 Tree *insertRandomElements(Tree *T, struct op *operation, int n);
 
-void **treeToArray(Tree *T, struct op *operation);
-
+/**
+ * Tree to array
+ */
+void **treeToArray(Tree *T, struct op *operation, int dim);
 int addToArray(Tree *T, void **arr, int i, struct op *operation);
 
+/**
+ * Balanced Tree
+ */
+Tree *buildBalancedTree(void **arr, int start, int end);
+Tree *balancedTree(Tree *T, struct op *operation);
 
 #endif /* HEADER_BST_H_ */

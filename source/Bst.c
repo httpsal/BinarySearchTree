@@ -187,15 +187,16 @@ Tree *insertRandomElements(Tree *T, struct op *operation, int n) {
 	return T;
 }
 
-void **treeToArray(Tree *T, struct op *operation) {
+/**
+ *
+ */
+void **treeToArray(Tree *T, struct op *operation, int dim) {
 
 	void **array = NULL;
-	int dim = countNodes(T);
 
 	if (dim > 0) {
 		array = (void **) malloc(sizeof(void *) * dim);
 		if (array != NULL) {
-
 			addToArray(T, array, 0, operation);
 		}
 	}
@@ -215,7 +216,6 @@ int addToArray(Tree *T, void **arr, int i, struct op *operation) {
 		i = addToArray(T->left, arr, i, operation);
 	}
 
-	//arr[i++] = T->key;
 	arr[i++] = operation->copy(T->key);
 
 	if (T->right != NULL) {
@@ -223,4 +223,49 @@ int addToArray(Tree *T, void **arr, int i, struct op *operation) {
 	}
 	return i;
 }
+
+/**
+ *
+ */
+Tree *buildBalancedTree(void **arr, int start, int end) {
+
+	if (start > end) {
+		// Base case
+		return NULL;
+	}
+
+	int mid = (start + end) / 2;
+
+	Tree *root = newNode(arr[mid]);
+
+	/* Recursively construct the left subtree and make it
+	 left child of root. */
+	root->left = buildBalancedTree(arr, start, mid - 1);
+	/* Do the same with the right subtree. */
+	root->right = buildBalancedTree(arr, mid + 1, end);
+
+	return root;
+}
+
+/**
+ *
+ */
+Tree *balancedTree(Tree *T, struct op *operation) {
+
+	Tree *newTree = NULL;
+	void **arr = NULL;
+	int dim = 0;
+
+	if (T != NULL) {
+		dim = countNodes(T);
+		arr = treeToArray(T, operation, dim);
+		if (arr != NULL) {
+			newTree = buildBalancedTree(arr, 0, dim - 1);
+			free(arr);
+		}
+	}
+	return newTree;
+}
+
+
 

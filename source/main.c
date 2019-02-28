@@ -7,7 +7,7 @@ int selectFunction(Tree **T, struct op *operation);
 
 int main() {
 	Tree *T = NULL;
-	struct op * operation = initOperations(strings);
+	struct op * operation = initOperations(integer);
 
 	while (1) {
 		printMenu();
@@ -36,8 +36,9 @@ void printMenu() {
 			" [5] PreOrder visit\n"
 			" [6] PostOrder visit\n"
 			" [7] Count tree's nodes\n"
-			" [8] Exit\n"
-			"(0 - 8) to select the operation.\n"
+			" [8] Balance the tree\n"
+			" [9] Exit\n"
+			"(0 - 9) to select the operation.\n"
 			"========================================\n\n");
 }
 
@@ -46,13 +47,14 @@ void printMenu() {
  */
 int selectFunction(Tree **T, struct op *operation) {
 	int choose = 0, *n;
+	Tree *newTree = NULL;
 	void *keyToDelete = NULL;
 
 	do {
 		printf("> ");
 		scanf("%d", &choose);
 		fflush(stdin);
-	} while (choose < 0 || choose > 8);
+	} while (choose < 0 || choose > 9);
 
 	printf("\n");
 
@@ -99,6 +101,16 @@ int selectFunction(Tree **T, struct op *operation) {
 			printf("Nodes inside the tree: %d\n", countNodes(*T));
 			break;
 		case 8:
+			newTree = balancedTree(*T, operation);
+			if (newTree != NULL) {
+				*T = deleteTree(*T, operation);
+				*T = newTree;
+				newTree = NULL;
+			} else {
+				printf("The tree has not been balanced.\n");
+			}
+			break;
+		case 9:
 		default:
 			printf("Exiting...\n");
 			choose = -1;
