@@ -7,10 +7,10 @@ int selectFunction(Tree **T, struct op *operation);
 
 int main() {
 	Tree *T = NULL;
-	struct op * operation = initOperations(integer);
-
+	struct op * operation = initOperations(floating);
+	printMenu();
 	while (1) {
-		printMenu();
+
 		if (selectFunction(&T, operation) < 0) {
 			break;
 		}
@@ -18,8 +18,7 @@ int main() {
 
 	T = deleteTree(T, operation);
 	freeOperations(operation);
-	printf("\n");
-	system("pause");
+	getchar();
 	return 0;
 }
 
@@ -37,9 +36,10 @@ void printMenu() {
 			" [6] PostOrder visit\n"
 			" [7] Count tree's nodes\n"
 			" [8] Balance the tree\n"
-			" [9] Exit\n"
-			"(0 - 9) to select the operation.\n"
-			"========================================\n\n");
+			" [9] Print menu'\n"
+			" [10] Exit\n"
+			"(0 - 10) to select the operation.\n"
+			"========================================\n");
 }
 
 /**
@@ -51,10 +51,10 @@ int selectFunction(Tree **T, struct op *operation) {
 	void *keyToDelete = NULL;
 
 	do {
-		printf("> ");
+		printf("\n[9 menu']> ");
 		scanf("%d", &choose);
 		fflush(stdin);
-	} while (choose < 0 || choose > 9);
+	} while (choose < 0 || choose > 10);
 
 	printf("\n");
 
@@ -111,8 +111,11 @@ int selectFunction(Tree **T, struct op *operation) {
 			}
 			break;
 		case 9:
+			printMenu();
+			break;
+		case 10:
 		default:
-			printf("Exiting...\n");
+			printf("Exiting. Press any key to continue...\n");
 			choose = -1;
 			break;
 	}

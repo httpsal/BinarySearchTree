@@ -29,9 +29,9 @@ void printInt(void *key) {
 void *getInt(void) {
 
 	char buffer[SIZE];
-
 	int *input = (int *) malloc(sizeof(int));
-	if (input) {
+
+	if (input != NULL) {
 
 		if (fgets(buffer, SIZE, stdin) != NULL) {
 			if (buffer[0] != '\n') {
@@ -41,6 +41,9 @@ void *getInt(void) {
 				free(input);
 			}
 		}
+	} else {
+		printf("Abort: getInt\n");
+		abort();
 	}
 	return NULL;
 }
@@ -50,9 +53,12 @@ void *getInt(void) {
  */
 void *getRandomInt(void) {
 	int *random = (int *) malloc(sizeof(int));
-	if (random) {
+	if (random != NULL) {
 		*random = (rand() % 100) + 1;	// Random number between 1 and 100
-		return random;
+		return (void *) random;
+	} else {
+		printf("Abort: getRandomInt\n");
+		abort();
 	}
 	return NULL;
 }
@@ -76,8 +82,22 @@ void *copyInt(void *from) {
 		to = (int *) malloc(sizeof(int));
 		if (to != NULL) {
 			*to = *(int *) from;
+		} else {
+			printf("Abort: copyInt\n");
+			abort();
 		}
 	}
 	return to;
+}
+
+/**
+ *
+ */
+int isEvenInt(void *key) {
+	int *intKey = (int *) key;
+	if (intKey != NULL) {
+		return *intKey % 2;
+	}
+	return -1;
 }
 

@@ -48,7 +48,7 @@ void **treeToArray(Tree *T, struct op *operation, int dim);
 int addToArray(Tree *T, void **arr, int i, struct op *operation);
 
 /**
- * Balanced Tree
+ * Balanced Tree from sorted array
  */
 Tree *buildBalancedTree(void **arr, int start, int end);
 Tree *balancedTree(Tree *T, struct op *operation);

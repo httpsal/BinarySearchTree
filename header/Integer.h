@@ -15,4 +15,6 @@ void deleteInt(void *key);
 
 void *copyInt(void *from);
 
+int isEvenInt(void *key);
+
 #endif /* HEADER_INTEGER_H_ */

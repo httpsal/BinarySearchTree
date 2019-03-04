@@ -18,6 +18,17 @@ struct op *initOperations(op_type type) {
 				operation->getInput = getInt;
 				operation->getRandom = getRandomInt;
 				operation->copy = copyInt;
+				operation->isEven = isEvenInt;
+				break;
+
+			case floating:
+				operation->compare = compareFloat;
+				operation->print = printFloat;
+				operation->delete = deleteFloat;
+				operation->getInput = getFloat;
+				operation->getRandom = getRandomFloat;
+				operation->copy = copyFloat;
+				operation->isEven = isEvenFloat;
 				break;
 
 			case strings:
@@ -28,10 +39,14 @@ struct op *initOperations(op_type type) {
 				operation->getInput = getString;
 				operation->getRandom = getRandomString;
 				operation->copy = copyString;
+				operation->isEven = isEvenString;
 				break;
 		}
 
 		return operation;
+	} else {
+		printf("Abort: initOperations\n");
+		abort();
 	}
 	return NULL;
 }

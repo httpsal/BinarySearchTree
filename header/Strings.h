@@ -17,4 +17,6 @@ void *getRandomString(void);
 
 void *copyString(void *from);
 
+int isEvenString(void *key);
+
 #endif /* HEADER_STRINGS_H_ */

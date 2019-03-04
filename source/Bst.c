@@ -33,6 +33,9 @@ Tree *newNode(void *key) {
 			node->key = key;
 			node->left = node->right = NULL;
 			return node;
+		} else {
+			printf("Abort: newNode\n");
+			abort();
 		}
 	}
 	return NULL;

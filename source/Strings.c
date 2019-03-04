@@ -42,6 +42,9 @@ void *getString(void) {
 				sscanf(buffer, "%s", input);
 				input[dim] = '\0';
 				return input;
+			} else {
+				printf("Abort: getString");
+				abort();
 			}
 		}
 	}
@@ -77,12 +80,15 @@ void *getRandomString(void) {
 
 	char *random = (char *) malloc(sizeof(char) * (dimRandom + 1));
 
-	if (random) {
+	if (random != NULL) {
 		for (i = 0; i < dimRandom; i++) {
 			random[i] = characters[rand() % dimCharacters];
 		}
 		random[i] = '\0';
 		return random;
+	} else {
+		printf("Abort: getRandomString\n");
+		abort();
 	}
 	return NULL;
 }
@@ -91,7 +97,7 @@ void *getRandomString(void) {
  *
  */
 void deleteString(void *key) {
-	if (key) {
+	if (key != NULL) {
 		free(key);
 	}
 	key = NULL;
@@ -111,8 +117,22 @@ void *copyString(void *from) {
 		if (to != NULL) {
 			to = strncpy(to, from, dim);
 			to[dim] = '\0';
+		} else {
+			printf("Abort: copyString\n");
+			abort();
 		}
 	}
 	return to;
+}
+
+/**
+ *
+ */
+int isEvenString(void *key) {
+	char *stringKey = (char *) key;
+	if (stringKey != NULL) {
+		return strlen(stringKey) % 2;
+	}
+	return -1;
 }
 

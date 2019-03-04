@@ -3,10 +3,13 @@
 
 #include "../header/Strings.h"
 #include "../header/Integer.h"
+#include "../header/Floating.h"
+
 
 struct op {
 	void (*print)(void *key);
 	int (*compare)(void *a, void *b);
+	int (*isEven)(void *key);
 	void *(*copy)(void *from);
 	void (*delete)(void *key);
 	void *(*getInput)(void);
@@ -14,7 +17,7 @@ struct op {
 };
 
 typedef enum {
-	integer, strings
+	integer, strings, floating
 } op_type;
 
 
