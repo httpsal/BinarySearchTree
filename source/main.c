@@ -2,28 +2,81 @@
 #include <stdlib.h>
 #include "../header/Bst.h"
 
+/**
+ * Prototype.
+ */
 void printMenu();
+void printMenuOperation();
 int selectFunction(Tree **T, struct op *operation);
+int selectOperation(struct op **operation);
 
+/**
+ * MAIN
+ */
 int main() {
 	Tree *T = NULL;
-	struct op * operation = initOperations(floating);
-	printMenu();
-	while (1) {
+	struct op * operation = NULL;
 
-		if (selectFunction(&T, operation) < 0) {
-			break;
+	while (selectOperation(&operation) >= 0) {
+
+		printMenu();
+
+		while (selectFunction(&T, operation) >= 0) {
 		}
 	}
-
-	T = deleteTree(T, operation);
-	freeOperations(operation);
+	printf("\nPress any key to continue...\n");
 	getchar();
 	return 0;
 }
 
 /**
- *
+ * Print a simple menù for selecting an operation.
+ */
+void printMenuOperation() {
+	printf("\n=========== Select Operation ===========\n"
+			" [0] Integer\n"
+			" [1] Floating point\n"
+			" [2] String\n"
+			" [3] Exit\n"
+			"========================================\n");
+}
+
+/**
+ * Get the user's input and make a new struct of operations.
+ */
+int selectOperation(struct op **operation) {
+	int choose = 0;
+	printMenuOperation();
+
+	do {
+		printf("\n> ");
+		scanf("%d", &choose);
+		fflush(stdin);
+	} while (choose < 0 || choose > 3);
+
+	freeOperations(*operation);
+
+	switch (choose) {
+		case 0:
+			*operation = initOperations(integer);
+			break;
+		case 1:
+			*operation = initOperations(floating);
+			break;
+		case 2:
+		default:
+			*operation = initOperations(strings);
+			break;
+		case 3:
+			choose = -1;
+			break;
+	}
+
+	return choose;
+}
+
+/**
+ * Print a simple menù for tree's operations.
  */
 void printMenu() {
 	printf("\n================= Menu =================\n"
@@ -43,7 +96,7 @@ void printMenu() {
 }
 
 /**
- *
+ * Get the user's input and select the right operation.
  */
 int selectFunction(Tree **T, struct op *operation) {
 	int choose = 0, *n;
@@ -115,7 +168,8 @@ int selectFunction(Tree **T, struct op *operation) {
 			break;
 		case 10:
 		default:
-			printf("Exiting. Press any key to continue...\n");
+			printf("Exiting...\n");
+			*T = deleteTree(*T, operation);
 			choose = -1;
 			break;
 	}

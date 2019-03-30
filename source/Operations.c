@@ -55,7 +55,7 @@ struct op *initOperations(op_type type) {
  *
  */
 void freeOperations(struct op *operation) {
-	if (operation) {
+	if (operation != NULL) {
 		free(operation);
 	}
 	operation = NULL;
