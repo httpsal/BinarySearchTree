@@ -1,2 +1,2 @@
 # BinarySearchTree
-Simple generic binary search tree that use function pointers.
+Simple generic BST with callbacks.
